@@ -31,15 +31,16 @@
 </nav>
     <div class="container">
     <h1> Tambah Jenis </h1>
-    <form action="simpan.php" method="POST">
-  <div class="mb-3">
-    <label for="exampleInputEmail1" class="form-label">Id Jenis</label>
-    <input type="number" class="form-control" name="id_jenis" id="exampleInputEmail1" aria-describedby="emailHelp">
-    <div id="emailHelp" class="form-text"></div>
-  </div>
+    <?php
+    $id_jenis=$_GET['id_jenis'];
+    include '../../config/koneksi.php';
+    $query = mysqli_query($conn, "SELECT * FROM jenis WHERE id_jenis='$id_jenis'");
+    $result=mysqli_fetch_array(result : $query);
+    ?>
+    <form action="proses.edit.php?id_jenis=<?php  echo $result['id_jenis']?>" method="POST">
   <div class="mb-3">
     <label for="exampleInputPassword1" class="form-label">Nama Jenis</label>
-    <input type="text" class="form-control" name="nama_jenis" id="exampleInputPassword1">
+    <input type="text" class="form-control" value="<?php echo $result['nama_jenis']?>" name="nama_jenis" id="exampleInputPassword1">
   </div>
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
